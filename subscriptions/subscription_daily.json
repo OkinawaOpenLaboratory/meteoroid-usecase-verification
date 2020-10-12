@@ -1,0 +1,18 @@
+{
+    "description": "DailyVisitorsByAge to Quantum Leap",
+    "subject": {
+        "entities": [
+	    {
+                "idPattern": ".*",
+	        "type": "DailyVisitorsByAge"
+	    }
+        ]
+    },
+    "notification": {
+        "http": {
+            "url": "http://quantumleap:8668/v2/notify"
+        },
+        "attrs": [
+        ]
+    }
+}

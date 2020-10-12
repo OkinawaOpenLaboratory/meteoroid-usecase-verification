@@ -1,0 +1,18 @@
+{
+    "description": "TCPNotification to Quantum Leap",
+    "subject": {
+        "entities": [
+            {
+		"idPattern": ".*",
+                "type": "TCPNotification"
+	    }
+        ]
+    },
+    "notification": {
+        "http": {
+            "url": "http://quantumleap:8668/v2/notify"
+        },
+        "attrs": [
+        ]
+    }
+}

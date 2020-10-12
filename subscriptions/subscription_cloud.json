@@ -1,0 +1,16 @@
+{
+  "description": "DailyVisitorsByAge to Orion on Cloud",
+  "subject": {
+    "entities": [
+      {
+        "idPattern": ".*",
+        "type": "DailyVisitorsByAge"
+      }
+    ]
+  },
+  "notification": {
+    "http": {
+      "url": "http://192.168.28.56:1026/v2/op/notify"
+    }
+  }
+}
