@@ -25,14 +25,16 @@ def main(params):
     age_groups = [0] * 10
     for person_id in person_ids:
         resp = requests.get(f'http://orion:1026/v2/entities/{person_id}',
-                            params={"type": "Person"})
+                            params={"type": "Person"},
+                            headers={"Fiware-Service": "iotpj"})
         person = resp.json()
         age = person['age']['value']
         age_groups[int(age / 10)] += 1
 
     # 3
     max_age_group = age_groups.index(max(age_groups))
-    resp = requests.get('http://orion:1026/v2/entities/ad%02d' % max_age_group)
+    resp = requests.get('http://orion:1026/v2/entities/ad%02d' % max_age_group,
+                        headers={"Fiware-Service": "iotpj"})
     image_object = resp.json()
 
     # 4

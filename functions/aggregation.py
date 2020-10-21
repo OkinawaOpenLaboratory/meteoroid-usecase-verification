@@ -28,14 +28,16 @@ def main(params):
     # 2
     age_group = [0] * 10
     for person_id in person_ids:
-        person = requests.get(f'{orion_host}/v2/entities/{person_id}').json()
+        person = requests.get(f'{orion_host}/v2/entities/{person_id}',
+                              headers={"Fiware-Service": "iotpj"}).json()
         if int(person["age"]["value"] / 10):
             age_group[int(person["age"]["value"] / 10)] += 1
     # 3
     data = {"id": "stadium1", "type": "DailyVisitorsByAge"}
     requests.post(f'{orion_host}/v2/entities',
                   data=json.dumps(data),
-                  headers={"Content-Type": "application/json"})
+                  headers={"Content-Type": "application/json",
+                           "Fiware-Service": "iotpj"})
     daily_visitors_by_age = {
         "10": {"type": "Number", "value": age_group[1]},
         "20": {"type": "Number", "value": age_group[2]},
@@ -53,7 +55,8 @@ def main(params):
     }
     resp = requests.post(f'{orion_host}/v2/entities/stadium1/attrs',
                          data=json.dumps(daily_visitors_by_age),
-                         headers={"Content-Type": "application/json"})
+                         headers={"Content-Type": "application/json",
+                                  "Fiware-Service": "iotpj"})
     if resp.status_code == 204:
         return {"status": "ok"}
     else:
@@ -67,7 +70,8 @@ def get_unique_person_ids(ql_host, from_date, to_date):
     while True:
         resp = requests.get(
             f'{ql_host}/v2/entities/OOL_FA/attrs/detectedPersons/value',
-            params=queries
+            params=queries,
+            headers={"Fiware-Service": "iotpj", "Fiware-ServicePath": "/"}
         )
         person_ids_list = resp.json().get("values")
         if person_ids_list:
